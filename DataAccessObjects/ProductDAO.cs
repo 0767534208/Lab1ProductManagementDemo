@@ -10,12 +10,18 @@ namespace DataAccessObjects
     public class ProductDAO
     {
         private List<Product> listProducts;
+        private List<Category> listCategories;
 
         public ProductDAO()
         {
+            listCategories = CategoryDAO.GetCategories();
+
             Product chai = new Product(1, "Chai", 3, 12, 18);
+            chai.Category = listCategories.FirstOrDefault(c => c.CategoryId == chai.CategoryId);
             Product chang = new Product(2, "Chang", 1, 23, 19);
+            chang.Category = listCategories.FirstOrDefault(c => c.CategoryId == chang.CategoryId);
             Product aniseed = new Product(3, "Aniseed Syrup", 2, 23, 10);
+            aniseed.Category = listCategories.FirstOrDefault(c => c.CategoryId == aniseed.CategoryId);
             listProducts = new List<Product> { chai, chang, aniseed };
         }
 
@@ -42,6 +48,7 @@ namespace DataAccessObjects
 
         public void SaveProduct(Product p)
         {
+            p.Category = listCategories.FirstOrDefault(c => c.CategoryId == p.CategoryId);
             listProducts.Add(p);
         }
 
@@ -54,6 +61,7 @@ namespace DataAccessObjects
                 existingProduct.UnitPrice = product.UnitPrice;
                 existingProduct.UnitsInStock = product.UnitsInStock;
                 existingProduct.CategoryId = product.CategoryId;
+                existingProduct.Category = listCategories.FirstOrDefault(c => c.CategoryId == existingProduct.CategoryId);
             }
         }
 
