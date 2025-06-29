@@ -21,7 +21,7 @@ namespace DataAccessObjects
 
         public List<Product> GetProducts()
         {
-            return listProducts;
+            return new List<Product>(listProducts);
         }
 
         //public static List<Product> GetProducts()
@@ -47,27 +47,22 @@ namespace DataAccessObjects
 
         public void UpdateProduct(Product product)
         {
-            foreach(Product p in listProducts.ToList())
+            Product existingProduct = listProducts.FirstOrDefault(p => p.ProductId == product.ProductId);
+            if (existingProduct != null)
             {
-                if(p.ProductId == product.ProductId)
-                {
-                    p.ProductId = product.ProductId;
-                    p.ProductName = product.ProductName;
-                    p.UnitPrice = product.UnitPrice;
-                    p.UnitsInStock = product.UnitsInStock;
-                    p.CategoryId = product.CategoryId;
-                }
+                existingProduct.ProductName = product.ProductName;
+                existingProduct.UnitPrice = product.UnitPrice;
+                existingProduct.UnitsInStock = product.UnitsInStock;
+                existingProduct.CategoryId = product.CategoryId;
             }
         }
 
         public void DeleteProduct(Product product)
         {
-            foreach(Product p in listProducts.ToList())
+            Product productToRemove = listProducts.FirstOrDefault(p => p.ProductId == product.ProductId);
+            if (productToRemove != null)
             {
-                if(p.ProductId == product.ProductId)
-                {
-                    listProducts.Remove(p);
-                }
+                listProducts.Remove(productToRemove);
             }
         }
 
