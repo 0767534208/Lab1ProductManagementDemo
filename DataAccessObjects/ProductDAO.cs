@@ -9,7 +9,7 @@ namespace DataAccessObjects
 {
     public class ProductDAO
     {
-        private static List<Product> listProducts;
+        private List<Product> listProducts;
 
         public ProductDAO()
         {
@@ -24,21 +24,21 @@ namespace DataAccessObjects
             return listProducts;
         }
 
-        public static List<Product> GetProducts()
-        {
-            var listProducts = new List<Product>();
-            try
-            {
-                using var db = new MyStoreContext();
-                listProducts = db.Products.ToList();
-            }
-            catch (Exception e)
-            {
+        //public static List<Product> GetProducts()
+        //{
+        //    var listProducts = new List<Product>();
+        //    try
+        //    {
+        //        using var db = new MyStoreContext();
+        //        listProducts = db.Products.ToList();
+        //    }
+        //    catch (Exception e)
+        //    {
 
-            }
+        //    }
 
-            return listProducts;
-        }
+        //    return listProducts;
+        //}
 
         public void SaveProduct(Product p)
         {

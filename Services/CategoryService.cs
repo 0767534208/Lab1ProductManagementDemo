@@ -21,4 +21,5 @@ namespace Services
         {
             return iCategoryRepository.GetCategories();
         }
+    }
 }
